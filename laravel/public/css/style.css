@@ -1,0 +1,124 @@
+/* main color */
+.light-blue{
+    background-color: #3A95FF;
+}
+.green{
+    background-color: #4CAF50;
+}
+/* secondary color */
+.gray{
+    background-color: #F5F5F5;
+}
+
+
+/* Основные стили для навигационной панели */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    z-index: 1000;
+}
+
+.container-nav {
+
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1a1a1a;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.2); /* Полупрозрачный белый фон */
+    backdrop-filter: blur(10px); /* Размытие фона */
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-button {
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.2); /* Полупрозрачный белый фон */
+    backdrop-filter: blur(10px); /* Размытие фона */
+    border-radius: 0.5rem;
+    color: #1a1a1a;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.nav-button:hover {
+    background: rgba(255, 255, 255, 0.322); /* Более непрозрачный фон при наведении */
+}
+
+
+
+.page-content{
+    padding-top: 9rem;
+}
+
+
+.footer{
+    padding: 0px 2rem;
+}
+.footer-bg{
+    background-color: #1a1a1a;
+    border-radius: 30px 30px 0 0;
+    padding: 2rem 0;
+}
+.footer-header{
+    justify-content: space-between;
+}
+
+
+/* spcial links */
+.social-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: white;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.social-link.facebook {
+    background: #1877f2; /* Facebook blue */
+}
+
+.social-link.twitter {
+    background: #1da1f2; /* Twitter blue */
+}
+
+.social-link.instagram {
+    background: #e4405f; /* Instagram pink */
+}
+
+.social-link.linkedin {
+    background: #0a66c2; /* LinkedIn blue */
+}
+
+.social-link.github {
+    background: #333; /* GitHub black */
+}
+
+.social-link:hover {
+    opacity: 0.9;
+}
