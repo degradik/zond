@@ -53,6 +53,18 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
             MenuItem::make('Documentation', 'https://moonshine-laravel.com/docs')
                 ->badge(fn() => 'Check')
                 ->blank(),
+
+            MenuItem::make("Пользователи",new \App\MoonShine\Resources\UserResource()),
+
+            MenuItem::make("Адреса",new \App\MoonShine\Resources\AddressResource()),
+
+            MenuItem::make("Станции",new \App\MoonShine\Resources\StationResource()),
+
+            MenuItem::make("Зонты",new \App\MoonShine\Resources\UmbrellaResource()),
+
+            MenuItem::make("Аренды",new \App\MoonShine\Resources\RentalResource()),
+
+
         ];
     }
 
