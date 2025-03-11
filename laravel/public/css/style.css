@@ -122,3 +122,42 @@
 .social-link:hover {
     opacity: 0.9;
 }
+
+
+/* HELP\FAQ */
+.callBack{
+    height: 100vh;
+}
+
+.page-grid{
+    grid-column: grid-start / grid-end;
+    margin-top: 0.5rem;
+    text-align: center;
+}
+.page-grid a{
+    display: grid;
+    -webkit-box-pack: center;
+    justify-content: center;
+    grid-template-columns: [ grid-start ] repeat(3, minmax(14px, 44px)) [ center-start ] repeat(6, minmax(14px, 44px)) [ center-end ] repeat(3, minmax(14px, 44px)) [ grid-end ];
+    gap: 40px 60px;
+    color: inherit;
+    width: 100%;
+    -webkit-box-align: center;
+    align-items: center;
+    grid-auto-rows: minmax(75px, auto);
+    border-bottom: 0.15rem solid rgb(233, 233, 233);
+    font-size: 1.5rem;
+    transition: background-color 0.1s ease 0s;
+}
+.page-grid a:hover{
+    background-color: rgb(228, 228, 228);
+}
+.sub_title{
+    color: rgb(0, 0, 0);
+    font-size: 5rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    line-height: 1;
+    letter-spacing: 2px;
+    text-align: left;
+}
