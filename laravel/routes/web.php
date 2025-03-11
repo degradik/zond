@@ -23,6 +23,8 @@ Route::get('/', function () {
     return view('pages.home');
 })->name('home');
 
+Route::get('/help', [App\Http\Controllers\HelpController::class, 'help'])->name('help');
+
 Route::get('/counter', Counter::class);
 
 

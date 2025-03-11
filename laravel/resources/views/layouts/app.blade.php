@@ -35,13 +35,13 @@
                         <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
                         </a>
                         <ul class="dropdown-menu text-small" style="">
-                            <li><a href="{{ route('profile') }}">Профиль</a></li>
+                            <li><a class="dropdown-item" href="{{ route('profile') }}">Профиль</a></li>
                             <li><a class="dropdown-item" href="#">Settings</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li>
+                            <li class="justify-content-center d-flex">
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
-                                    <button type="submit">Выйти</button>
+                                    <button class="btn btn-danger px-5" type="submit">Выйти</button>
                                 </form>
                             </li>
                         </ul>
