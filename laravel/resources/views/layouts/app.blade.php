@@ -23,7 +23,29 @@
                 <a href="#" class="nav-button fs-5">Link</a>
                 <a href="#" class="nav-button fs-5">FAQs</a>
                 <a href="#" class="nav-button fs-5">О нас</a>
-                <a href="#" class="nav-button fs-5">Контакты</a>
+                @auth
+                    <div class="dropdown text-end d-flex align-items-center">
+                        <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                        </a>
+                        <ul class="dropdown-menu text-small" style="">
+                            <li><a href="{{ route('profile') }}">Профиль</a></li>
+                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button type="submit">Выйти</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                @endauth
+                
+                @guest
+                    <a class="btn btn-primary d-flex align-items-center" href="{{ route('login') }}">Вход</a>
+                    <a class="btn btn-primary d-flex align-items-center" href="{{ route('register') }}">Регистрация</a>
+                @endguest
             </div>
         </div>
     </nav>
