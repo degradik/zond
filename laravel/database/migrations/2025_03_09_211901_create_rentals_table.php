@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(App\Models\User::class,);
             $table->foreignIdFor(App\Models\Umbrella::class,);
-            $table->date("date_start")->nullable();
-            $table->date("date_end")->nullable();
+            $table->dateTime("date_start")->nullable();
+            $table->dateTime("date_end")->nullable();
             $table->decimal('total_cost', 10, 2)->default(0);
             $table->enum("status",["active","completed"])->default("active");
             $table->timestamps();

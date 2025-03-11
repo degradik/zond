@@ -11,6 +11,8 @@ class Rental extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
+        'umbrella_id',
         "status",
         "date_start",
         "date_end",

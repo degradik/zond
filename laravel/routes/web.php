@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 
 use App\Livewire\Counter;
 
+
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,3 +39,20 @@ Route::post('/logout', [App\Http\Controllers\Auth\LogoutController::class, 'logo
 
 // Профиль пользователя
 Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile')->middleware('auth');
+
+Route::post('/rentals/{rental}/complete', [App\Http\Controllers\RentalController::class, 'complete'])
+    ->name('rentals.complete')
+    ->middleware('auth');
+
+
+
+
+Route::get('/stations', [App\Http\Controllers\MapController::class, 'getStations']);
+
+Route::post('/rentals', [App\Http\Controllers\RentalController::class, 'store'])->middleware('auth');
+
+Route::post('/rentals/create', [App\Http\Controllers\RentalController::class, 'store'])->name('rentals.store')->middleware('auth');
+
+Route::get('/stations/{stationId}/available-umbrellas-list', [App\Http\Controllers\MapController::class, 'getAvailableUmbrellasList']);
+
+
