@@ -43,12 +43,14 @@ class Rental extends Model
         $start = Carbon::parse($this->date_start);
         $end = Carbon::parse($this->date_end);
         $minutes = $end->diffInMinutes($start);
-        
-        // Фиксированная цена за 10 минут
-        $pricePerInterval = 50;
-        $intervalMinutes = 10;
     
-        return ceil($minutes / $intervalMinutes) * $pricePerInterval;
+        // Начальная стоимость
+        $basePrice = 50;
+        // Цена за каждую минуту
+        $pricePerMinute = 5;
+    
+        // Общая стоимость: базовая + (минуты * цена за минуту)
+        return $basePrice + ($minutes * $pricePerMinute);
     }
     
 }

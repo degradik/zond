@@ -28,8 +28,8 @@
                             <tr>
                                 <th>#</th>
                                 <th>Зонт</th>
-                                <th>Дата начала</th>
-                                <th>Дата окончания</th>
+                                <th>Время аренды</th>
+                                <th>Стоимость</th>
                                 <th>Статус</th>
                                 <th>Действие</th>
                             </tr>
@@ -39,8 +39,9 @@
                                 <tr>
                                     <td>{{ $rental->id }}</td>
                                     <td>Зонт №{{ $rental->umbrella->id ?? 'Неизвестно' }}</td>
-                                    <td>{{ $rental->date_start }}</td>
-                                    <td>{{ $rental->date_end ?? '—' }}</td>
+                                    <td>{{ $rental->date_start }} -- {{ $rental->date_end ?? '—' }}</td>
+
+                                    <td>{{ $rental->total_cost}}</td>
                                     <td>
                                         @if ($rental->status === 'active')
                                             <span class="badge bg-success">Активна</span>
