@@ -12,14 +12,34 @@
 
 
 /* Основные стили для навигационной панели */
-.navbar {
+/* .navbar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
 
     z-index: 1000;
+} */
+
+/* Базовые стили */
+.navbar {
+    background-color: #fff;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: top 0.3s ease;
 }
+
+
+
+
+/*  */
+/*  */
+/*  */
+
+
 
 .container-nav {
 
@@ -172,4 +192,298 @@
     letter-spacing: 2px;
     text-align: left;
 
+}
+
+
+/* Home.blade.php */
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.btn-primary {
+    padding: 12px 24px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 300px;
+}
+
+.btn-primary:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    padding: 10px 20px;
+    background-color: #ccc;
+    color: #333;
+    font-size: 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.btn-secondary:hover {
+    background-color: #bbb;
+}
+
+.map-container {
+    width: 100%;
+    height: 500px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    margin-top: 20px;
+}
+
+.modal-overlay {
+    display: none; /* Изначально скрыто */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    padding: 10px;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    width: 400px;
+    max-width: 100%;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.map-container-enhanced {
+    height: 75vh;
+    min-height: 500px;
+    width: 100%;
+    border-radius: 0;
+    margin-top: 60px;
+}
+
+.enhanced-modal {
+    width: 95% !important;
+    max-width: 100%;
+    padding: 20px 15px;
+}
+
+.modal-title {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+}
+
+.modal-text {
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+.umbrellas-container {
+    display: grid;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+@media (max-width: 768px) {
+    .map-container-enhanced {
+        height: 85vh;
+        min-height: 300px;
+        margin-top: 55px;
+    }
+    
+    .enhanced-modal {
+        padding: 15px 10px;
+    }
+    
+    .modal-title {
+        font-size: 1.1rem;
+    }
+    
+    .btn-primary {
+        padding: 12px !important;
+        font-size: 14px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .map-container-enhanced {
+        height: 90vh;
+        margin-top: 50px;
+    }
+    
+    .modal-title {
+        font-size: 1rem;
+    }
+    
+    .modal-text {
+        font-size: 0.9rem;
+    }
+}
+
+@keyframes fadeIn {
+    from { transform: translateY(-10px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+#umbrellas-list button {
+    margin-bottom: 10px;
+    display: block;
+    width: 100%;
+}
+
+/* ✅ Медиа-запросы для мобильных */
+@media (max-width: 768px) {
+    .btn-primary {
+        font-size: 18px;
+        padding: 14px 28px;
+    }
+
+    .btn-secondary {
+        font-size: 16px;
+    }
+
+    .map-container {
+        height: 300px; /* Меньше высота на мобилках */
+    }
+
+    .modal-content {
+        width: 100%;
+        padding: 15px;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .btn-primary {
+        font-size: 16px;
+        padding: 12px 20px;
+    }
+
+    .map-container {
+        height: 250px;
+    }
+
+    .modal-content {
+        padding: 10px;
+    }
+}
+
+/* new app.blade.php */
+/* Убрать конфликты с Bootstrap */
+.navbar {
+    background-color: #fff;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: top 0.3s ease;
+}
+
+/* Адаптивное меню */
+.nav-links {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* Иконка пользователя в мобильной версии */
+.dropdown-toggle::after {
+    display: none !important;
+}
+
+/* Адаптация навигации для мобилок */
+@media (max-width: 768px) {
+    .container-nav {
+        height: auto;
+        padding: 10px 15px;
+    }
+    
+    .nav-links {
+        width: 100%;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-top: 10px;
+    }
+    
+    .nav-button, .btn {
+        font-size: 14px !important;
+        padding: 0.4rem 0.8rem !important;
+        margin: 2px !important;
+    }
+    
+    .dropdown-menu {
+        position: absolute;
+        right: 15px !important;
+        left: auto !important;
+    }
+}
+
+/* Футер для мобилок */
+@media (max-width: 768px) {
+    .footer-header {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .footer .nav {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .footer .nav-link {
+        width: 100%;
+        margin: 3px 0 !important;
+    }
+    
+    .social-links {
+        justify-content: center !important;
+        margin-top: 1rem;
+    }
+}
+
+/* Общие улучшения */
+.page-content {
+    padding-top: 6rem; /* Уменьшил отступ для мобилок */
+}
+
+.logo {
+    font-size: 1.3rem; /* Меньше лого на мобилках */
+}
+
+/* Исправление z-index для выпадающего меню */
+.dropdown-menu {
+    z-index: 1001 !important;
 }

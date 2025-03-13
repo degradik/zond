@@ -44,30 +44,37 @@ class RentalController extends Controller
 
     public function complete(Request $request, Rental $rental)
     {
-        // Проверяем, что это аренда текущего пользователя
         if ($rental->user_id !== auth()->id()) {
             return response()->json([
                 'success' => false,
                 'message' => 'Вы не можете завершить эту аренду.'
             ], 403);
         }
-
+    
+        $request->validate([
+            'station_id' => 'required|exists:stations,id'
+        ]);
+        
         // Завершаем аренду
         $rental->update([
-            'date_end' => now()->toDateTimeString(), 
-
+            'date_end' => now()->toDateTimeString(),
             'status' => 'completed',
         ]);
-
-        // Освобождаем зонт
-        $rental->umbrella->update(['status' => 'available']);
-
+    
+        // Обновляем зонт: освобождаем и меняем станцию
+        $umbrella = $rental->umbrella;
+        if ($umbrella) {
+            $umbrella->update([
+                'status' => 'available',
+                'station_id' => $request->station_id // ✅ Теперь обновляем станцию у зонта
+            ]);
+        }
+    
         return response()->json([
             'success' => true,
-            'message' => 'Аренда завершена!',
+            'message' => 'Аренда завершена! Зонт возвращён на станцию.',
             'rental' => $rental
         ]);
     }
-
         
 }

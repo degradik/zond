@@ -13,4 +13,9 @@ class Station extends Model
     public function address(){
         return $this->belongsTo(Address::class);
     }
+
+    public function umbrellas()
+    {
+        return $this->hasMany(Umbrella::class);
+    }
 }

@@ -12,6 +12,7 @@ class Umbrella extends Model
 
     protected $fillable = [
         "status",
+        "station_id", // ✅ Добавляем возможность обновлять station_id!
     ];
 
     public function station(){

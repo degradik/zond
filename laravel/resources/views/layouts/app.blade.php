@@ -1,113 +1,177 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>WZond</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- Bootstrap 5 и FontAwesome -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset("css/style.css") }}">
 
-    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=65085185-e802-42da-be67-8e4ad9343c5c"></script>
+    <!-- Кастомные стили -->
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+    <!-- Скрипты -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=65085185-e802-42da-be67-8e4ad9343c5c"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body class="gray">
-    <nav class="navbar">
-        <div class=" container-nav">
-            <!-- Логотип или название сайта -->
-            <a href="/" class="logo me-5">Brand</a>
-    
-            <!-- Кнопки навигации -->
-            <div class="nav-links">
-                <a href="#" class="nav-button fs-5">Главная</a>
-                <a href="#" class="nav-button fs-5">Link</a>
-                <a href="#" class="nav-button fs-5">Link</a>
-                <a href="#" class="nav-button fs-5">Link</a>
-                <a href="#" class="nav-button fs-5">FAQs</a>
-                <a href="#" class="nav-button fs-5">О нас</a>
-                @auth
-                    <div class="dropdown text-end d-flex align-items-center">
-                        <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
-                        </a>
-                        <ul class="dropdown-menu text-small" style="">
-                            <li><a class="dropdown-item" href="{{ route('profile') }}">Профиль</a></li>
-                            <li><a class="dropdown-item" href="#">Settings</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li class="justify-content-center d-flex">
-                                <form action="{{ route('logout') }}" method="POST">
-                                    @csrf
-                                    <button class="btn btn-danger px-5" type="submit">Выйти</button>
-                                </form>
-                            </li>
-                        </ul>
+
+    <!-- Навигационная панель -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-nav">
+            <!-- Логотип -->
+            <a href="/" class="logo">WzOnd</a>
+
+            <!-- Бургер-меню для мобилок -->
+            <button class="navbar-toggler d-lg-none" type="button" 
+                    data-bs-toggle="collapse" 
+                    data-bs-target="#mainNav" 
+                    aria-controls="mainNav" 
+                    aria-expanded="false">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Основное меню -->
+            <div class="collapse navbar-collapse" id="mainNav">
+                <div class="nav-links">
+                    <!-- Основные ссылки -->
+                    <div class="d-flex flex-column flex-lg-row gap-2">
+                        <a href="#" class="nav-button">Главная</a>
+                        <a href="#" class="nav-button">Услуги</a>
+                        <a href="#" class="nav-button">Цены</a>
+                        <a href="#" class="nav-button">FAQs</a>
+                        <a href="#" class="nav-button">О нас</a>
                     </div>
-                @endauth
-                
-                @guest
-                    <a class="btn btn-primary d-flex align-items-center" href="{{ route('login') }}">Вход</a>
-                    <a class="btn btn-primary d-flex align-items-center" href="{{ route('register') }}">Регистрация</a>
-                @endguest
+
+                    <!-- Авторизация/Профиль -->
+                    <div class="d-flex align-items-center ms-lg-3 mt-2 mt-lg-0">
+                        @auth
+                        <div class="dropdown">
+                            <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" 
+                               data-bs-toggle="dropdown" 
+                               aria-expanded="false">
+                                <img src="https://github.com/mdo.png" 
+                                     alt="avatar" 
+                                     width="32" 
+                                     height="32" 
+                                     class="rounded-circle">
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="{{ route('profile') }}">Профиль</a></li>
+                                <li><a class="dropdown-item" href="#">Настройки</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li class="px-2">
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                        <button class="btn btn-danger w-100" type="submit">Выйти</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                        @endauth
+
+                        @guest
+                        <div class="d-flex flex-column flex-lg-row gap-2">
+                            <a class="btn btn-primary" href="{{ route('login') }}">Вход</a>
+                            <a class="btn btn-outline-primary" href="{{ route('register') }}">Регистрация</a>
+                        </div>
+                        @endguest
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
 
-    <div class="page-content">
+    <!-- Основной контент -->
+    <main class="page-content">
         @yield('content')    
-    </div>
-      
+    </main>
 
-    <div class="footer">
+    <!-- Подвал -->
+    <footer class="footer">
         <div class="footer-bg">
-            <div class="container col-12 d-flex flex-wrap">
-                <div class="footer-header col-12 d-flex flex-wrap py-5">
-                    <a href="/" class="logo">Brand</a>
-                    <div class="col justify-content-end social-links">
-                        <a href="https://facebook.com" target="_blank" class="social-link facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="https://twitter.com" target="_blank" class="social-link twitter">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="https://instagram.com" target="_blank" class="social-link instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="https://linkedin.com" target="_blank" class="social-link linkedin">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                        <a href="https://github.com" target="_blank" class="social-link github">
-                            <i class="fab fa-github"></i>
-                        </a>
+            <div class="container">
+                <!-- Верхняя часть футера -->
+                <div class="footer-header row align-items-center py-4">
+                    <div class="col-12 col-md-4 text-center text-md-start">
+                        <a href="/" class="logo">WzOnd</a>
+                    </div>
+                    
+                    <div class="col-12 col-md-8 mt-3 mt-md-0">
+                        <div class="social-links d-flex justify-content-center justify-content-md-end gap-3">
+                            <a href="https://facebook.com" class="social-link facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="https://twitter.com" class="social-link twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="https://instagram.com" class="social-link instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="https://linkedin.com" class="social-link linkedin">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="https://github.com" class="social-link github">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
-                <ul class="nav col-12 flex-wrap d-flex nav-pills nav-fill border-bottom pb-5">
-                    <li class="nav-item">
-                        <a class="nav-link text-white btn btn-primary" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white btn btn-primary" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white btn btn-primary" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white btn btn-primary" >Link</a>
-                    </li>
-                </ul>
-                <div class="col-12 pt-5">
-                    <p class="text-center text-white">© 2025</p>
+
+                <!-- Навигация в футере -->
+                <nav class="row border-bottom pb-4">
+                    <ul class="nav col-12 flex-column flex-md-row justify-content-center gap-2">
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-primary" href="#">Услуги</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-primary" href="#">Партнёрство</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-primary" href="#">Клиенты</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-primary" href="#">Контакты</a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <!-- Копирайт -->
+                <div class="row pt-4">
+                    <div class="col-12 text-center">
+                        <p class="mb-0">© 2025 WZond. Все права защищены.</p>
+                    </div>
                 </div>
             </div>
         </div>
-        
-    </div>
+    </footer>
 
+    <!-- Bootstrap Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
+    <!-- Кастомный скрипт для скрытия навигации -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navbar = document.querySelector('.navbar');
+            let lastScroll = 0;
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+            window.addEventListener('scroll', () => {
+                const currentScroll = window.pageYOffset;
+                
+                if (currentScroll > lastScroll && currentScroll > 100) {
+                    navbar.style.top = `-${navbar.offsetHeight}px`;
+                } else {
+                    navbar.style.top = '0';
+                }
+                
+                lastScroll = currentScroll;
+            });
+        });
+    </script>
+
 </body>
 </html>

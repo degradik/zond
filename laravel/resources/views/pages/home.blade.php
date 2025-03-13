@@ -2,23 +2,30 @@
 
 @section('content')
 
-<button onclick="openModal(1, 'Тестовая станция', 'ул. Примерная, 1', 'Описание тестовой станции')">Тест</button>
+<!-- Основная обёртка -->
+<div class="container-fluid px-0"> <!-- Изменено на container-fluid -->
 
-<div class="light-blue" style="height: 1200px;">
+    <!-- Карта с адаптивной высотой -->
+    <div id="map" class="map-container-enhanced"></div>
 
-    <div id="map" style="width: 100%; height: 500px;"></div>
+    <!-- Модальное окно -->
+    <div id="modal" class="modal-overlay">
+        <div class="modal-content enhanced-modal">
+            <h3 class="modal-title"><strong>Адрес:</strong> <span id="station-address"></span></h3>
+            <p class="modal-text"><strong>Описание:</strong> <span id="station-description"></span></p>
+            <p id="available-umbrellas" class="modal-text"></p>
 
-    <div id="modal" style="display: none;">
-        <h3><strong>Адрес:</strong> <span id="station-address"></span></h3>
-        <p><strong>Описание:</strong> <span id="station-description"></span></p>
-        <p id="available-umbrellas"></p>
+            <div id="umbrellas-list" class="umbrellas-container"></div>
 
-        <div id="umbrellas-list"></div> <!-- Сюда выведем кнопки аренды зонтов -->
-
-        <button type="button" onclick="$('#modal').hide();">Закрыть</button>
+            <button type="button" onclick="$('#modal').hide();" 
+                    class="btn btn-secondary mt-3 w-100">
+                Закрыть
+            </button>
+        </div>
     </div>
 
-</div>  
+</div>
+
 
 <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=ВАШ_API_КЛЮЧ"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -57,16 +64,14 @@
 
     // Функция открытия модального окна
     function openModal(stationId, stationName, stationAddress, stationDescription) {
-        $('#station-name').text(stationName || "Название не указано");
-        $('#station-address').text(stationAddress || "Адрес не указан");
-        $('#station-description').text(stationDescription || "Описание не указано");
+        $('#station-address').text(stationAddress || 'Адрес не указан');
+        $('#station-description').text(stationDescription || 'Описание не указано');
+        $('#available-umbrellas').text('Загрузка свободных зонтов...');
 
-        // Сначала очистим список зонтов
         $('#umbrellas-list').html('');
 
-        // Получаем доступные зонты по станции
+        // Загружаем зонты (пример)
         $.getJSON(`/stations/${stationId}/available-umbrellas-list`, function (umbrellas) {
-
             if (umbrellas.length === 0) {
                 $('#available-umbrellas').text('Свободных зонтов нет.');
                 return;
@@ -74,18 +79,16 @@
 
             $('#available-umbrellas').text(`Свободных зонтов: ${umbrellas.length}`);
 
-            // Для каждого зонта создаём кнопку аренды
             umbrellas.forEach(umbrella => {
                 $('#umbrellas-list').append(`
-                    <div style="margin-bottom: 10px;">
-                        <p>Зонт №${umbrella.id}</p>
-                        <button onclick="rentUmbrella(${umbrella.id})" class="btn btn-primary">Арендовать</button>
-                    </div>
+                    <button class="btn-primary" onclick="rentUmbrella(${umbrella.id})">
+                        Арендовать зонт №${umbrella.id}
+                    </button>
                 `);
             });
-
-            $('#modal').show();
         });
+
+        $('#modal').css('display', 'flex');
     }
 
     function rentUmbrella(umbrellaId) {
