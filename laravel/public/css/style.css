@@ -88,9 +88,12 @@
 
 
 .footer{
-    padding: 0px 2rem;
+    padding: 0 2rem;
+    padding-top: 1rem;
+    background-color: #000000;
 }
 .footer-bg{
+    height: 25vh;
     background-color: #1a1a1a;
     border-radius: 30px 30px 0 0;
     padding: 2rem 0;
@@ -155,33 +158,13 @@
     border: 1px solid #ccc;
     z-index: 1000;
 }
-.callBack{
-    height: 100vh;
+
+.faq-section{
+    margin-top: 7rem !important;
+    height: 75vh;
 }
 
-.page-grid{
-    grid-column: grid-start / grid-end;
-    margin-top: 0.5rem;
-    text-align: center;
-}
-.page-grid a{
-    display: grid;
-    -webkit-box-pack: center;
-    justify-content: center;
-    grid-template-columns: [ grid-start ] repeat(3, minmax(14px, 44px)) [ center-start ] repeat(6, minmax(14px, 44px)) [ center-end ] repeat(3, minmax(14px, 44px)) [ grid-end ];
-    gap: 40px 60px;
-    color: inherit;
-    width: 100%;
-    -webkit-box-align: center;
-    align-items: center;
-    grid-auto-rows: minmax(75px, auto);
-    border-bottom: 0.15rem solid rgb(233, 233, 233);
-    font-size: 1.5rem;
-    transition: background-color 0.1s ease 0s;
-}
-.page-grid a:hover{
-    background-color: rgb(228, 228, 228);
-}
+
 .sub_title{
     color: rgb(0, 0, 0);
     font-size: 5rem;

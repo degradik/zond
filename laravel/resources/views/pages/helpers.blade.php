@@ -1,36 +1,74 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="callBack page-grid position-relative d-flex flex-wrap px-5 pt-5 col-12">
-    <div class="col-12">
-        <h2 class="sub_title text-center">Обратная связь</h2>
-        <div class="col-12">
-            <h3 class="text-primary small_sub_title">Оператор (ИИ) отвечает в течение 2 минут  </h3>
-        </div>
-        </div>
-
-        <form class="col-6 position-absolute top-50 start-50 translate-middle mt-5" action="">
-        @csrf
-        <div class="form-floating mb-3 col-12">
-            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">Чтото</label>
-        </div>
-        <div class="form-floating mb-5 col-12">
-            <input type="text" class="form-control" id="floatingInputGroup1" placeholder="Имя пользователя">
-            <label for="floatingInputGroup1">Имя пользователя</label>
-        </div>
-        
-        <div class="form-floating mb-3 col-12">
-            <textarea class="form-control" placeholder="Оставьте комментарий здесь" id="floatingTextarea2" style="height: 200px"></textarea>
-            <label for="floatingTextarea2">Комментарии</label>
-        </div>
-        <div class="col-12">
-            <div class="d-flex flex-lg-row align-items-md-stretch align-items-center justify-content-md-start gap-3 mb-4">
-            <button class="btn col-12 btn-lg p-3 mt-5 text-white bg-primary btn-blue-neon d-flex align-items-center justify-content-start fw-semibold">Отправить 
-                
-            </button>
+<!-- Секция FAQ -->
+<div class="container faq-section">
+    <h2 class="sub_title text-center">Ответы на вопросы (FAQ)</h2>
+    <div class="accordion py-5" id="faqAccordion">
+      <!-- Вопрос 1 -->
+        <div class="faq-item">
+            <div class="accordion-item">
+                <h3 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                    Как восстановить пароль?
+                    </button>
+                </h3>
+                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                    Перейдите на страницу входа и нажмите "Забыли пароль?". Введите ваш email, и мы отправим инструкции по восстановлению.
+                    </div>
+                </div>
             </div>
         </div>
-    </form>
+
+        <!-- Вопрос 2 -->
+        <div class="faq-item">
+            <div class="accordion-item">
+            <h3 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                Как изменить email в профиле?
+                </button>
+            </h3>
+            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                Перейдите в раздел "Профиль" и нажмите "Редактировать". Введите новый email и сохраните изменения.
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <!-- Вопрос 3 -->
+        <div class="faq-item">
+            <div class="accordion-item">
+            <h3 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                Как связаться с поддержкой?
+                </button>
+            </h3>
+            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                Вы можете написать нам через форму выше или отправить email на support@example.com.
+                </div>
+            </div>
+            </div>
+        </div>
+
+      <!-- Вопрос 4 -->
+        <div class="faq-item">
+            <div class="accordion-item">
+            <h3 class="accordion-header" id="headingFour">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour">
+                Какие способы оплаты вы поддерживаете?
+                </button>
+            </h3>
+            <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                Мы поддерживаем оплату банковскими картами (Visa, MasterCard), PayPal и криптовалютой.
+                </div>
+            </div>
+        </div>    
+    </div>
+
 </div>
+
 @endsection
