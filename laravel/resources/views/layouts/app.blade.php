@@ -21,68 +21,77 @@
 <body class="gray">
 
     <!-- Навигационная панель -->
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar col-12 d-flex flex-wrap navbar-expand-lg">
         <div class="container-nav">
             <!-- Логотип -->
-            <a href="/" class="logo">WzOnd</a>
+            <a href="/" class="logo col">WzOnd</a>
 
             <!-- Бургер-меню для мобилок -->
-            <button class="navbar-toggler d-lg-none" type="button" 
-                    data-bs-toggle="collapse" 
-                    data-bs-target="#mainNav" 
-                    aria-controls="mainNav" 
-                    aria-expanded="false">
-                <i class="fas fa-bars"></i>
+            <button class="navbar-toggler col" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
             </button>
 
-            <!-- Основное меню -->
-            <div class="collapse navbar-collapse" id="mainNav">
-                <div class="nav-links">
-                    <!-- Основные ссылки -->
-                    <div class="d-flex flex-column flex-lg-row gap-2">
-                        <a href="#" class="nav-button">Главная</a>
-                        <a href="#" class="nav-button">Услуги</a>
-                        <a href="#" class="nav-button">Цены</a>
-                        <a href="#" class="nav-button">FAQs</a>
-                        <a href="#" class="nav-button">О нас</a>
-                    </div>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Меню</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <div class="nav-links">
+                        <!-- Основные ссылки -->
+                        <div class="d-flex flex-column align-items-center flex-lg-row gap-2">
+                            <a href="/" class="nav-button">Главная</a>
+                            <a href="#" class="nav-button">Услуги</a>
+                            <a href="#" class="nav-button">Цены</a>
+                            <a href="{{ route('help') }}" class="nav-button">FAQs</a>
+                            <a href="#" class="nav-button">О нас</a>
+                        
+    
+                        <!-- Авторизация/Профиль -->
+                            <div class="d-flex align-items-center ms-lg-3 mt-2 mt-lg-0">
+                                @auth
+                                    <div class="dropdown d-none d-lg-block">
+                                        <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" 
+                                        data-bs-toggle="dropdown" 
+                                        aria-expanded="false">
+                                            <img src="https://github.com/mdo.png" 
+                                                alt="avatar" 
+                                                width="32" 
+                                                height="32" 
+                                                class="rounded-circle">
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item" href="{{ route('profile') }}">Профиль</a></li>
+                                            <li><a class="dropdown-item" href="#">Настройки</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li class="px-2">
+                                                <form action="{{ route('logout') }}" method="POST">
+                                                    @csrf
+                                                    <button class="btn btn-danger w-100" type="submit">Выйти</button>
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </div>
 
-                    <!-- Авторизация/Профиль -->
-                    <div class="d-flex align-items-center ms-lg-3 mt-2 mt-lg-0">
-                        @auth
-                        <div class="dropdown">
-                            <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" 
-                               data-bs-toggle="dropdown" 
-                               aria-expanded="false">
-                                <img src="https://github.com/mdo.png" 
-                                     alt="avatar" 
-                                     width="32" 
-                                     height="32" 
-                                     class="rounded-circle">
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="{{ route('profile') }}">Профиль</a></li>
-                                <li><a class="dropdown-item" href="#">Настройки</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li class="px-2">
-                                    <form action="{{ route('logout') }}" method="POST">
+                                    {{-- На мобилке кнопка с аватаром отключается и заменяется 2мя --}}
+                                    <a href="{{ route('profile') }}" class="nav-button d-block d-lg-none">Профиль</a>
+                                    <form class="position-absolute bottom-0 start-50 translate-middle-x mb-5" action="{{ route('logout') }}" method="POST">
                                         @csrf
-                                        <button class="btn btn-danger w-100" type="submit">Выйти</button>
+                                        <button class="btn btn-danger w-100 d-block d-lg-none" type="submit">Выйти</button>
                                     </form>
-                                </li>
-                            </ul>
+                                @endauth
+        
+                                @guest
+                                    <div class="d-flex flex-column flex-lg-row gap-2">
+                                        <a class="btn btn-primary" href="{{ route('login') }}">Вход</a>
+                                        <a class="btn btn-outline-primary" href="{{ route('register') }}">Регистрация</a>
+                                    </div>
+                                @endguest
+                            </div>
                         </div>
-                        @endauth
-
-                        @guest
-                        <div class="d-flex flex-column flex-lg-row gap-2">
-                            <a class="btn btn-primary" href="{{ route('login') }}">Вход</a>
-                            <a class="btn btn-outline-primary" href="{{ route('register') }}">Регистрация</a>
-                        </div>
-                        @endguest
                     </div>
                 </div>
-            </div>
+            </div>        
         </div>
     </nav>
 
@@ -92,13 +101,13 @@
     </main>
 
     <!-- Подвал -->
-    <footer class="footer">
+    <footer class="footer mt-1">
         <div class="footer-bg">
             <div class="container">
                 <!-- Верхняя часть футера -->
                 <div class="footer-header row align-items-center py-4">
                     <div class="col-12 col-md-4 text-center text-md-start">
-                        <a href="/" class="logo">WzOnd</a>
+                        <a href="/" class="logo text-white-50">WzOnd</a>
                     </div>
                     
                     <div class="col-12 col-md-8 mt-3 mt-md-0">
@@ -123,27 +132,27 @@
                 </div>
 
                 <!-- Навигация в футере -->
-                <nav class="row border-bottom pb-4">
-                    <ul class="nav col-12 flex-column flex-md-row justify-content-center gap-2">
+                <nav class="row col-12 d-none d-md-block border-bottom pb-4">
+                    <ul class="nav justify-content-center">
                         <li class="nav-item">
-                            <a class="nav-link btn btn-primary" href="#">Услуги</a>
+                          <a class="nav-link text-white" aria-current="page" href="#">Главная</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn btn-primary" href="#">Партнёрство</a>
+                          <a class="nav-link text-white" href="#">Помощь</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn btn-primary" href="#">Клиенты</a>
+                          <a class="nav-link text-white" href="#">Партнерство</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn btn-primary" href="#">Контакты</a>
+                          <a href="#" class="nav-link text-white">О нас</a>
                         </li>
-                    </ul>
+                      </ul>
                 </nav>
 
                 <!-- Копирайт -->
                 <div class="row pt-4">
                     <div class="col-12 text-center">
-                        <p class="mb-0">© 2025 WZond. Все права защищены.</p>
+                        <p class="mb-0 text-white-50">© 2025 WZond. Все права защищены.</p>
                     </div>
                 </div>
             </div>

@@ -42,7 +42,6 @@
 
 
 .container-nav {
-
     margin: 0 auto;
     padding: 0 20px;
     display: flex;
@@ -56,8 +55,10 @@
     font-weight: bold;
     color: #1a1a1a;
     text-decoration: none;
-    background: rgba(255, 255, 255, 0.2); /* Полупрозрачный белый фон */
-    backdrop-filter: blur(10px); /* Размытие фона */
+
+    /* Блюр кнопки */
+    /* background: rgba(255, 255, 255, 0.2); 
+    backdrop-filter: blur(10px);  */
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
 }
@@ -83,9 +84,7 @@
 
 
 
-.page-content{
-    padding-top: 9rem;
-}
+
 
 
 .footer{
@@ -221,6 +220,9 @@ body {
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     width: 100%;
     max-width: 300px;
+}
+.btn-outline-primary{
+    padding: 12px 24px;
 }
 
 .btn-primary:hover {
@@ -381,6 +383,10 @@ body {
     p {
         font-size: 16px;
     }
+    .page-content {
+        padding-top: 1.75rem !important; /* Уменьшил отступ для мобилок */
+    }
+    
 }
 
 @media (max-width: 480px) {
@@ -395,7 +401,7 @@ body {
 
     .modal-content {
         padding: 10px;
-    }
+   }
 }
 
 /* new app.blade.php */
@@ -428,6 +434,9 @@ body {
     .container-nav {
         height: auto;
         padding: 10px 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
     
     .nav-links {
@@ -452,6 +461,9 @@ body {
 
 /* Футер для мобилок */
 @media (max-width: 768px) {
+    .footer{
+        padding: 0;
+    }
     .footer-header {
         flex-direction: column;
         align-items: center;
@@ -476,7 +488,8 @@ body {
 
 /* Общие улучшения */
 .page-content {
-    padding-top: 6rem; /* Уменьшил отступ для мобилок */
+    padding-top: 1rem;
+    min-height: 77vh; /* Уменьшил отступ для мобилок */
 }
 
 .logo {
@@ -487,3 +500,17 @@ body {
 .dropdown-menu {
     z-index: 1001 !important;
 }
+
+/* profile */
+.profile-section, .rentals-section {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  .profile-section {
+    background-color: #f9f9f9;
+  }
+  .rentals-section {
+    background-color: #f1f1f1;
+  }
