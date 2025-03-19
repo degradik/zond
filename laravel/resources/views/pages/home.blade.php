@@ -14,8 +14,15 @@
             <h3 class="modal-title"><strong>Адрес:</strong> <span id="station-address"></span></h3>
             <p class="modal-text"><strong>Описание:</strong> <span id="station-description"></span></p>
             <p id="available-umbrellas" class="modal-text"></p>
-
-            <div id="umbrellas-list" class="umbrellas-container"></div>
+            @auth
+                <div id="umbrellas-list" class="umbrellas-container"></div>
+            @endauth
+            @guest
+                <div class="d-flex flex-column flex-lg-row gap-2">
+                    <a class="btn btn-primary" href="{{ route('login') }}">Вход</a>
+                    <a class="btn btn-outline-primary" href="{{ route('register') }}">Регистрация</a>
+                </div>
+            @endguest
 
             <button type="button" onclick="$('#modal').hide();" 
                     class="btn btn-secondary mt-3 w-100">

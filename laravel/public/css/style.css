@@ -153,9 +153,9 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: white;
+    background: rgba(32, 32, 32, 0.199);
     padding: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid #000000;
     z-index: 1000;
 }
 
@@ -271,9 +271,19 @@ body {
 }
 
 .enhanced-modal {
-    width: 95% !important;
+    width: 20% !important;
     max-width: 100%;
     padding: 20px 15px;
+}
+@media (max-width:1300px) {
+    .enhanced-modal{
+        width: 50% !important;
+    }
+}
+@media (max-width:500px) {
+    .enhanced-modal{
+        width: 100% !important;
+    }
 }
 
 .modal-title {

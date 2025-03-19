@@ -13,12 +13,17 @@
 
         <div class="form-group">
             <input type="email" name="email" placeholder="Email" required>
+            @error('email')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
         </div>
 
         <div class="form-group">
             <input type="password" name="password" placeholder="Пароль" required>
+            @error('password')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
         </div>
-
         <button type="submit" class="btn-login">Войти</button>
     </form>
 
@@ -39,6 +44,14 @@
         align-items: center;
         height: 100vh;
     }
+    .alert-danger{
+        color: red;
+    }
+    .alert{
+        list-style: none;
+        text-decoration: none;
+        text-align: center;
+    }
 
     .login-container {
         background: #fff;
@@ -51,7 +64,7 @@
         text-align: center;
     }
 
-
+    
     .login-container h2 {
         margin-bottom: 20px;
         color: #333;

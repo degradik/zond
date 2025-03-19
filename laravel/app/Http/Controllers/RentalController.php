@@ -30,6 +30,7 @@ class RentalController extends Controller
             'umbrella_id' => $request->umbrella_id,
             'date_start' => now()->toDateTimeString(), 
             'status' => 'active',
+            
         ]);
     
         Umbrella::where('id', $request->umbrella_id)
