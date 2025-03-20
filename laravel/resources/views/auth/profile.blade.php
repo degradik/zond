@@ -143,6 +143,39 @@
     </div> --}}
 
     <script>
+        // function completeRental(rentalId) {
+        //     let stationId = document.getElementById(`station-${rentalId}`).value;
+            
+        //     if (!stationId) {
+        //         alert("Выберите станцию перед сдачей зонта!");
+        //         return;
+        //     }
+    
+        //     console.log(`Отправляем запрос: rentalId=${rentalId}, stationId=${stationId}`);
+    
+        //     fetch(`/rentals/${rentalId}/complete`, {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //             'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        //         },
+        //         body: JSON.stringify({
+        //             station_id: stationId
+        //         })
+        //     })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         console.log("Ответ от сервера:", data);
+        //         if (data.success) {
+        //             alert(data.message);
+        //             location.reload(); // Обновляем страницу
+        //         } else {
+        //             alert('Ошибка: ' + data.message);
+        //         }
+        //     })
+        //     .catch(error => console.error('Ошибка:', error));
+        // }
+
         function completeRental(rentalId) {
             let stationId = document.getElementById(`station-${rentalId}`).value;
             
@@ -150,10 +183,8 @@
                 alert("Выберите станцию перед сдачей зонта!");
                 return;
             }
-    
-            console.log(`Отправляем запрос: rentalId=${rentalId}, stationId=${stationId}`);
-    
-            fetch(`/rentals/${rentalId}/complete`, {
+
+            fetch(`/rentals/${rentalId}/return`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -165,16 +196,19 @@
             })
             .then(response => response.json())
             .then(data => {
-                console.log("Ответ от сервера:", data);
                 if (data.success) {
-                    alert(data.message);
-                    location.reload(); // Обновляем страницу
+                    alert(data.message || 'Зонт успешно возвращён!');
+                    location.reload(); // Обновляем страницу профиля
                 } else {
-                    alert('Ошибка: ' + data.message);
+                    alert(data.message || 'Ошибка возврата зонта');
                 }
             })
-            .catch(error => console.error('Ошибка:', error));
+            .catch(error => {
+                console.error('Ошибка:', error);
+                alert('Ошибка при возврате зонта');
+            });
         }
+
     </script>
     
 @endsection

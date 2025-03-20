@@ -57,4 +57,10 @@ Route::post('/rentals/create', [App\Http\Controllers\RentalController::class, 's
 
 Route::get('/stations/{stationId}/available-umbrellas-list', [App\Http\Controllers\MapController::class, 'getAvailableUmbrellasList']);
 
+Route::post('/rentals/{rental}/return', [App\Http\Controllers\RentalController::class, 'returnRental'])->middleware('auth');
+
+Route::get('/user/active-rentals', [App\Http\Controllers\RentalController::class, 'getActiveRentals'])->middleware('auth');
+
+
+
 

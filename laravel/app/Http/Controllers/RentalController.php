@@ -77,5 +77,65 @@ class RentalController extends Controller
             'rental' => $rental
         ]);
     }
+
+    public function returnRental(Request $request, $rentalId)
+    {
+        $rental = Rental::where('id', $rentalId)
+                        ->where('user_id', auth()->id())
+                        ->where('status', 'active')
+                        ->first();
+
+        if (!$rental) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Активная аренда не найдена'
+            ], 404);
+        }
+
+        $request->validate([
+            'station_id' => 'required|exists:stations,id'
+        ]);
+
+        $stationId = $request->station_id;
+
+        // Завершаем аренду
+        $rental->update([
+            'date_end' => now()->toDateTimeString(),
+            'status' => 'completed'
+        ]);
+
+        // Возвращаем зонт на станцию
+        $umbrella = Umbrella::find($rental->umbrella_id);
+
+        if (!$umbrella) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Зонт не найден'
+            ], 404);
+        }
+
+        $umbrella->update([
+            'station_id' => $stationId,
+            'status' => 'available'
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Зонт успешно возвращён'
+        ]);
+    }
+
+
+    public function getActiveRentals()
+    {
+        $rentals = Rental::where('user_id', auth()->id())
+                        ->where('status', 'active')
+                        ->with('umbrella') // чтобы сразу подтянуть зонты
+                        ->get();
+    
+        return response()->json($rentals);
+    }
+    
+
         
 }

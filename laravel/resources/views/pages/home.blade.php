@@ -77,26 +77,70 @@
 
         $('#umbrellas-list').html('');
 
-        // Загружаем зонты (пример)
+        // Запрашиваем зонты на станции
         $.getJSON(`/stations/${stationId}/available-umbrellas-list`, function (umbrellas) {
-            if (umbrellas.length === 0) {
-                $('#available-umbrellas').text('Свободных зонтов нет.');
-                return;
-            }
-
             $('#available-umbrellas').text(`Свободных зонтов: ${umbrellas.length}`);
 
             umbrellas.forEach(umbrella => {
                 $('#umbrellas-list').append(`
-                    <button class="btn-primary" onclick="rentUmbrella(${umbrella.id})">
+                    <button class="btn btn-primary w-100 mb-2" onclick="rentUmbrella(${umbrella.id})">
                         Арендовать зонт №${umbrella.id}
                     </button>
                 `);
             });
         });
 
+        $.getJSON(`/user/active-rentals`, function (rentals) {
+            if (rentals.length > 0) {
+                let returnButtons = '<div class="mt-3"><h5>Сдать зонт:</h5>';
+
+                rentals.forEach(rental => {
+                    returnButtons += `
+                        <button class="btn btn-danger w-100 mb-2"
+                            onclick="returnUmbrella(${rental.id}, ${stationId}, ${rental.umbrella.id})">
+                            Сдать зонт №${rental.umbrella.id}
+                        </button>
+                    `;
+                });
+
+                returnButtons += '</div>';
+                $('#umbrellas-list').append(returnButtons);
+            }
+        });
+
         $('#modal').css('display', 'flex');
     }
+
+    function returnUmbrella(rentalId, stationId, umbrellaId) {
+        fetch(`/rentals/${rentalId}/return`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({
+                station_id: stationId
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(`Зонт №${umbrellaId} успешно возвращён на станцию!`);
+
+                $('#modal').hide();
+
+                // Можешь обновить карту или вызвать повторный fetch станций/зонтов
+                // Например, initMap() или другой метод обновления интерфейса
+            } else {
+                alert(data.message || 'Ошибка возврата зонта');
+            }
+        })
+        .catch(err => {
+            console.error('Ошибка возврата:', err);
+            alert('Произошла ошибка при возврате зонта.');
+        });
+    }
+
 
     function rentUmbrella(umbrellaId) {
         fetch('{{ route('rentals.store') }}', {
